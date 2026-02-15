@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gift Finder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #ff6f61;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        section {
+            padding: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background: white;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        .filters {
+            background: #fff;
+            padding: 15px;
+            margin: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .filters input, .filters select {
+            padding: 8px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🎁 Gift Finder</h1>
+        <p>Discover unique gift ideas for every occasion</p>
+    </header>
+
+    <!-- Filters -->
+    <div class="filters">
+        <input type="text" id="searchBar" placeholder="Search gifts...">
+        <select id="occasionFilter">
+            <option value="all">All Occasions</option>
+            <option value="birthday">Birthday</option>
+            <option value="anniversary">Anniversary</option>
+            <option value="holiday">Holiday</option>
+        </select>
+        <select id="budgetFilter">
+            <option value="all">All Budgets</option>
+            <option value="low">Under $20</option>
+            <option value="mid">$20 - $100</option>
+            <option value="high">Above $100</option>
+        </select>
+    </div>
+
+    <!-- Gift Sections -->
+    <section>
+        <h2>🎂 Birthday Gifts</h2>
+        <ul>
+            <li data-occasion="birthday" data-budget="low">Handmade photo album</li>
+            <li data-occasion="birthday" data-budget="mid">Customized coffee mug</li>
+            <li data-occasion="birthday" data-budget="high">Wireless earbuds</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>❤️ Anniversary Gifts</h2>
+        <ul>
+            <li data-occasion="anniversary" data-budget="mid">Romantic dinner voucher</li>
+            <li data-occasion="anniversary" data-budget="high">Personalized jewelry</li>
+            <li data-occasion="anniversary" data-budget="high">Weekend getaway plan</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>🎄 Holiday Gifts</h2>
+        <ul>
+            <li data-occasion="holiday" data-budget="low">DIY gift basket</li>
+            <li data-occasion="holiday" data-budget="mid">Board games for family fun</li>
+            <li data-occasion="holiday" data-budget="high">Cozy blanket set</li>
+        </ul>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Gift Finder | Made with ❤️ by You</p>
+    </footer>
+
+    <script>
+        const searchBar = document.getElementById('searchBar');
+        const occasionFilter = document.getElementById('occasionFilter');
+        const budgetFilter = document.getElementById('budgetFilter');
+        const gifts = document.querySelectorAll('li');
+
+        function filterGifts() {
+            const searchText = searchBar.value.toLowerCase();
+            const occasion = occasionFilter.value;
+            const budget = budgetFilter.value;
+
+            gifts.forEach(gift => {
+                const text = gift.textContent.toLowerCase();
+                const giftOccasion = gift.getAttribute('data-occasion');
+                const giftBudget = gift.getAttribute('data-budget');
+
+                const matchesSearch = text.includes(searchText);
+                const matchesOccasion = (occasion === 'all' || giftOccasion === occasion);
+                const matchesBudget = (budget === 'all' || giftBudget === budget);
+
+                if (matchesSearch && matchesOccasion && matchesBudget) {
+                    gift.style.display = 'block';
+                } else {
+                    gift.style.display = 'none';
+                }
+            });
+        }
+
+        searchBar.addEventListener('input', filterGifts);
+        occasionFilter.addEventListener('change', filterGifts);
+        budgetFilter.addEventListener('change', filterGifts);
+    </script>
+</body>
+</html>
